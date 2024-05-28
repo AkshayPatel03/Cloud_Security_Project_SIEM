@@ -15,12 +15,12 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
 
 ## Features
 
-- **Microsoft Azure**: Cloud platform for creating and managing virtual machines.
-- **Azure Log Analytics Workspace**: Collects and analyzes log data.
-- **Microsoft Defender for Cloud**: Provides security management and threat protection.
-- **Azure Sentinel**: Cloud-native SIEM tool for monitoring and analyzing security data.
-- **PowerShell**: Script to scan Event Viewer and send log data to an external API.
-- **IPgeolocation.io API**: Retrieves geolocation information for IP addresses.
+- [**Microsoft Azure**](https://azure.microsoft.com/en-us/free/): Cloud platform for creating and managing virtual machines.
+- [**Azure Log Analytics Workspace**](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-workspace-overview): Collects and analyzes log data.
+- [**Microsoft Defender for Cloud**](https://learn.microsoft.com/en-us/azure/defender-for-cloud/managing-and-responding-alerts): Provides security management and threat protection.
+- [**Azure Sentinel**](https://learn.microsoft.com/en-us/azure/sentinel/overview?tabs=azure-portal): Cloud-native SIEM tool for monitoring and analyzing security data.
+- [**PowerShell**](https://learn.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-12.0.0): Script to scan Event Viewer and send log data to an external API.
+- [**IPgeolocation.io API**](https://ipgeolocation.io/): Retrieves geolocation information for IP addresses.
 
 ## Architecture
 
@@ -97,12 +97,12 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
     ## Incident Report
 
     ### Incident Summary
-    - **Date/Time**: [Timestamp]
-    - **Description**: Multiple failed logon attempts detected from IP [IPAddress].
+    - **Date/Time**: 
+    - **Description**: Multiple failed logon attempts detected from IP .
 
     ### Affected Resources
-    - **Resource**: [VM Name]
-    - **Public IP**: [Public IP Address]
+    - **Resource**: 
+    - **Public IP**: 
 
     ### Actions Taken
     - **Action 1**: Blocked IP address using NSG rule.
@@ -116,11 +116,3 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
 ## Conclusion
 
 This project provided hands-on experience with cloud security, SIEM tools, and incident response procedures. By following these steps, you can set up a robust monitoring and response system in Microsoft Azure. This project highlights skills in cloud security, log analysis, and threat detection, making it a valuable addition to any SOC Analyst's portfolio.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For any questions or further information, please contact [Your Name] at [your.email@example.com].
