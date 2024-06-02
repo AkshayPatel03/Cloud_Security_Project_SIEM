@@ -82,21 +82,54 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 ![](Project_screenshots/Log_Analytics-Connection3.png)
 
-- **Screenshot 4**: Powershell script to create custom log and extract location using IPs.
 
-![](Project_screenshots/)
+- **Screenshot 3.4**: Geo Location API setup, get API key 
 
-![](Project_screenshots/)
+![](Project_screenshots/Geo-location-api2.png)
 
-![](Project_screenshots/)
+![](Project_screenshots/Geo-location-api-explaination.png)
 
-![](Project_screenshots/)
 
-![](Project_screenshots/Geo-location-api-limit.png)
 
-- **Screenshot 5**: Configuration of data collection rules in Log Analytics.
+- **Screenshot 3.5**: VM Access remotely, Check Security logs 
+
+![](Project_screenshots/Azure_VM_Creation_Step1.png)
+
+![](Project_screenshots/RDP-agent.png)
+
+![](Project_screenshots/RDP-VM-agent-connect.png)
+
+![](Project_screenshots/RDP-VM-OsSetup.png)
+
+- **Screenshot 4.0**:Turn off Firewall to allow the traffic in.
+
+![](Project_screenshots/RDP-VM-Firewall-off.png)
+
+![](Project_screenshots/`RDP-VM-connection.png)
+
+
+- **Screenshot 4.1**:Configuration of data collection rules in Log Analytics.
+ 
+![](Project_screenshots/RDP-VM-FailedLogonAttempts-EventViewer.png)
 
 ![](Project_screenshots/LAWFailed_Logon_Analytics_Query-1.png)
+
+- **Screenshot 4.2**: Powershell script to create custom log and extract location using IPs.
+
+![](Project_screenshots/RDP-VM-Powershel-script-Custom-log-file-create.png)
+
+![](Project_screenshots/RDP-VM-Powershel-Failed_Logon_Attempts.png)
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
+
 
 - **Screenshot 6**: Example of a Custom log schema creation in Log Analytics.
 
