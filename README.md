@@ -35,25 +35,25 @@ To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline i
 
 - **Screenshot 1**: VM creation process in Azure Portal.
 
-![Azure portal Google](..\Project_screenshots\Azure_VM_Creation.png)
+![Azure portal Google](Project_screenshots/Azure_VM_Creation.png)
 
-![Azure Free Portal](..\Project_screenshots\Azure_VM_Creation_2.png)
+![Azure Free Portal](Project_screenshots/Azure_VM_Creation_2.png)
 
-![Resource Creation](..\Project_screenshots\Azure_VM_Creation_3.png)
+![Resource Creation](Project_screenshots/Azure_VM_Creation_3.png)
 
-![VM creation](Project_screenshots\Azure_VM_Creation_11.png)
+![VM creation](Project_screenshots/Azure_VM_Creation_11.png)
 
-![VM after deployment](Project_screenshots\Azure_VM_Creation_Step1.png)
+![VM after deployment](Project_screenshots/Azure_VM_Creation_Step1.png)
 
 - **Screenshot 2**: Network settings configuration for the VM.
 
-![NSG network configuration](Project_screenshots\NSG_Setup1.png)
+![NSG network configuration](Project_screenshots/NSG_Setup1.png)
 
-![NSG inbound rule setup](Project_screenshots\NSG_Setup2.jpg)
+![NSG inbound rule setup](Project_screenshots/NSG_Setup2.jpg)
 
-![NSG inbound rule configuration](Project_screenshots\NSG_Setup3.png)
+![NSG inbound rule configuration](Project_screenshots/NSG_Setup3.png)
 
-![NSG inbound rule configuration 2](Project_screenshots\NSG_Setup4.png)
+![NSG inbound rule configuration 2](Project_screenshots/NSG_Setup4.png)
 
 ## Step 2: Configuring Log Collection with Azure Log Analytics
 
@@ -72,15 +72,15 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 - **Screenshot 3**: Log Analytics Workspace creation.
 
-![](Project_screenshots\Log_Analytics_Workspace1.png)
+![](Project_screenshots/Log_Analytics_Workspace1.png)
 
 ![](Project_screenshots/Log_Analytics_Workspace2.png)
 
-![](Project_screenshots\Log_Analytics_Workspace4.png)
+![](Project_screenshots/Log_Analytics_Workspace4.png)
 
-![](Project_screenshots\Log_Analytics-Connection2.png)
+![](Project_screenshots/Log_Analytics-Connection2.png)
 
-![](Project_screenshots\Log_Analytics-Connection3.png)
+![](Project_screenshots/Log_Analytics-Connection3.png)
 
 - **Screenshot 4**: Powershell script to create custom log and extract location using IPs.
 
@@ -96,21 +96,21 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 - **Screenshot 5**: Configuration of data collection rules in Log Analytics.
 
-![](Project_screenshots\LAWFailed_Logon_Analytics_Query-1.png)
+![](Project_screenshots/LAWFailed_Logon_Analytics_Query-1.png)
 
 - **Screenshot 6**: Example of a Custom log schema creation in Log Analytics.
 
-![](Project_screenshots\LAW_Custom_logSchema_create-1.png)
+![](Project_screenshots/LAW_Custom_logSchema_create-1.png)
 
-![](Project_screenshots\LAW_Custom_logSchema_create2.png)
+![](Project_screenshots/LAW_Custom_logSchema_create2.png)
 
-![](Project_screenshots\LAW_Custom_logSchema_create3.png)
+![](Project_screenshots/LAW_Custom_logSchema_create3.png)
 
-![](Project_screenshots\LAW_Custom_logSchema_create4.png)
+![](Project_screenshots/LAW_Custom_logSchema_create4.png)
 
-![](Project_screenshots\LAW_Custom_logSchema_create5.png)
+![](Project_screenshots/LAW_Custom_logSchema_create5.png)
 
-![](Project_screenshots\LAW_Custom_logSchema_create6.png)
+![](Project_screenshots/LAW_Custom_logSchema_create6.png)
 
 ## Step 3: Implementing Microsoft Defender for Cloud
 
@@ -129,9 +129,9 @@ Microsoft Defender for Cloud continuously monitored the environment and generate
 
 - **Screenshot 7**: Microsoft Defender for Cloud dashboard showing security posture.
 
-![](Project_screenshots\Microsoft-Defender-for-cloud1.png)
+![](Project_screenshots/Microsoft-Defender-for-cloud1.png)
 
-![](Project_screenshots\Microsoft-Defender-for-cloud3.png)
+![](Project_screenshots/Microsoft-Defender-for-cloud3.png)
 
 ## Step 4: Setting Up Azure Sentinel
 
@@ -160,23 +160,23 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
 - **Screenshot 8**: Azure Sentinel dashboard showing connected data sources.
 
-![](Project_screenshots\MicrosoftSentinelCreate1.png)
+![](Project_screenshots/MicrosoftSentinelCreate1.png)
 
-![](Project_screenshots\MicrosoftSentinelCreate2.png)
+![](Project_screenshots/MicrosoftSentinelCreate2.png)
 
-![](Project_screenshots\MicrosoftSentinelCreate3.png)
+![](Project_screenshots/MicrosoftSentinelCreate3.png)
 
-![](Project_screenshots\MicrosoftSentinelCreate4.png)
+![](Project_screenshots/MicrosoftSentinelCreate4.png)
 
 - **Screenshot 9**: Visualization of failed logon attempt locations on a map in Sentinel.
 
-![](Project_screenshots\Azure-Sentenial-SIEM-grid.png)
+![](Project_screenshots/Azure-Sentenial-SIEM-grid.png)
 
-![](Project_screenshots\Azure-Sentenial-SIEM-map-2.png)
+![](Project_screenshots/Azure-Sentenial-SIEM-map-2.png)
 
-![](Project_screenshots\Azure-Sentenial-SIEM-map-3.png)
+![](Project_screenshots/Azure-Sentenial-SIEM-map-3.png)
 
-![](Project_screenshots\Geo-location-api-limit.png)
+![](Project_screenshots/Geo-location-api-limit.png)
 
 ### 4. Monitoring with PowerShell
 
@@ -186,7 +186,7 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
    - Use the IPgeolocation.io API to log the IP addresses and their geolocations.
 
    ```powershell
-   $logPath = "C:\ProgramData\FailedRDPlogfile.log"
+   $logPath = "C:/ProgramData/FailedRDPlogfile.log"
    $apiKey = "your_api_key"
 
    Get-EventLog -LogName Security -InstanceId 4625 | ForEach-Object {
