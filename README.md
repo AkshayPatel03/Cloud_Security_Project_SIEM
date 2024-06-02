@@ -35,7 +35,7 @@ To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline i
 
 - **Screenshot 1**: VM creation process in Azure Portal.
 
-![Azure portal Google](..\Project_screenshots\Azure_VM_Creation.png)
+![Azure portal Google](Project_screenshots/Azure_VM_Creation.png)
 
 ![Azure Free Portal](..\Project_screenshots\Azure_VM_Creation_2.png)
 
