@@ -33,19 +33,17 @@ To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline i
 
 ### Screenshots
 
-- **Screenshot 1**: VM creation process in Azure Portal.
+- **Screenshot 1.1**: VM creation process in Azure Portal.
 
 ![Azure portal Google](Project_screenshots/Azure_VM_Creation.png)
 
 ![Azure Free Portal](Project_screenshots/Azure_VM_Creation_2.png)
 
-![Resource Creation](Project_screenshots/Azure_VM_Creation_3.png)
-
 ![VM creation](Project_screenshots/Azure_VM_Creation_11.png)
 
-![VM after deployment](Project_screenshots/Azure_VM_Creation_Step1.png)
+![Resource Creation](Project_screenshots/Azure_VM_Creation_3.png)
 
-- **Screenshot 2**: Network settings configuration for the VM.
+- **Screenshot 1.2**: Network settings configuration for the VM.
 
 ![NSG network configuration](Project_screenshots/NSG_Setup1.png)
 
@@ -55,97 +53,7 @@ To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline i
 
 ![NSG inbound rule configuration 2](Project_screenshots/NSG_Setup4.png)
 
-## Step 2: Configuring Log Collection with Azure Log Analytics
-
-### Creating a Log Analytics Workspace
-
-I created an Azure Log Analytics Workspace to collect and analyze log data from the VMs. This workspace served as the central hub for all log-related activities.
-
-1. **Workspace Creation**: I set up a new Log Analytics Workspace using the Azure Portal.
-2. **Agent Installation**: Installed the Log Analytics agent on each VM to forward log data to the workspace.
-
-### Configuring Data Collection
-
-I configured the workspace to collect specific logs, such as Windows Event logs, which include details about failed RDP attempts. This setup ensured that all relevant security events were captured.
-
-### Screenshots
-
-- **Screenshot 3**: Log Analytics Workspace creation.
-
-![](Project_screenshots/Log_Analytics_Workspace1.png)
-
-![](Project_screenshots/Log_Analytics_Workspace2.png)
-
-![](Project_screenshots/Log_Analytics_Workspace4.png)
-
-![](Project_screenshots/Log_Analytics-Connection2.png)
-
-![](Project_screenshots/Log_Analytics-Connection3.png)
-
-
-- **Screenshot 3.4**: Geo Location API setup, get API key 
-
-![](Project_screenshots/Geo-location-api2.png)
-
-![](Project_screenshots/Geo-location-api-explaination.png)
-
-
-
-- **Screenshot 3.5**: VM Access remotely, Check Security logs 
-
-![](Project_screenshots/Azure_VM_Creation_Step1.png)
-
-![](Project_screenshots/RDP-agent.png)
-
-![](Project_screenshots/RDP-VM-agent-connect.png)
-
-![](Project_screenshots/RDP-VM-OsSetup.png)
-
-- **Screenshot 4.0**:Turn off Firewall to allow the traffic in.
-
-![](Project_screenshots/RDP-VM-Firewall-off.png)
-
-![](Project_screenshots/`RDP-VM-connection.png)
-
-
-- **Screenshot 4.1**:Configuration of data collection rules in Log Analytics.
- 
-![](Project_screenshots/RDP-VM-FailedLogonAttempts-EventViewer.png)
-
-![](Project_screenshots/LAWFailed_Logon_Analytics_Query-1.png)
-
-- **Screenshot 4.2**: Powershell script to create custom log and extract location using IPs.
-
-![](Project_screenshots/RDP-VM-Powershel-script-Custom-log-file-create.png)
-
-![](Project_screenshots/RDP-VM-Powershel-Failed_Logon_Attempts.png)
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
-
-
-- **Screenshot 6**: Example of a Custom log schema creation in Log Analytics.
-
-![](Project_screenshots/LAW_Custom_logSchema_create-1.png)
-
-![](Project_screenshots/LAW_Custom_logSchema_create2.png)
-
-![](Project_screenshots/LAW_Custom_logSchema_create3.png)
-
-![](Project_screenshots/LAW_Custom_logSchema_create4.png)
-
-![](Project_screenshots/LAW_Custom_logSchema_create5.png)
-
-![](Project_screenshots/LAW_Custom_logSchema_create6.png)
-
-## Step 3: Implementing Microsoft Defender for Cloud
+## Step 2: Implementing Microsoft Defender for Cloud
 
 ### Enabling Microsoft Defender for Cloud
 
@@ -160,11 +68,138 @@ Microsoft Defender for Cloud continuously monitored the environment and generate
 
 ### Screenshots
 
-- **Screenshot 7**: Microsoft Defender for Cloud dashboard showing security posture.
+- **Screenshot 2.1**: Microsoft Defender for Cloud dashboard showing security posture.
 
 ![](Project_screenshots/Microsoft-Defender-for-cloud1.png)
 
 ![](Project_screenshots/Microsoft-Defender-for-cloud3.png)
+
+## Step 3: Configuring Log Collection with Azure Log Analytics
+
+### Creating a Log Analytics Workspace
+
+I created an Azure Log Analytics Workspace to collect and analyze log data from the VMs. This workspace served as the central hub for all log-related activities.
+
+1. **Workspace Creation**: I set up a new Log Analytics Workspace using the Azure Portal.
+2. **Agent Installation**: Installed the Log Analytics agent on each VM to forward log data to the workspace.
+
+### Configuring Data Collection
+
+I configured the workspace to collect specific logs, such as Windows Event logs, which include details about failed RDP attempts. This setup ensured that all relevant security events were captured.
+
+### 3. Monitoring with PowerShell
+
+1. **PowerShell Script**:
+
+   - Open PowerShell on the VM and create a script to scan Event Viewer for EventID 4625.
+   - Use the IPgeolocation.io API to log the IP addresses and their geolocations.
+
+[Powershell script for Locations](../Scrips/geo_location_logs.ps1)
+
+### Screenshots
+
+- **Screenshot 3.1**: Log Analytics Workspace creation.
+
+![](Project_screenshots/Log_Analytics_Workspace1.png)
+
+![](Project_screenshots/Log_Analytics_Workspace2.png)
+
+![](Project_screenshots/Log_Analytics_Workspace4.png)
+
+![](Project_screenshots/Log_Analytics-Connection2.png)
+
+![](Project_screenshots/Log_Analytics-Connection3.png)
+
+- **Screenshot 3.2**: VM Access remotely, Check Security logs
+
+![](Project_screenshots/Azure_VM_Creation_Step1.png)
+
+![](Project_screenshots/RDP-agent.png)
+
+![](Project_screenshots/RDP-VM-agent-connect.png)
+
+![](Project_screenshots/RDP-VM-OsSetup.png)
+
+- **Screenshot 3.3**:Turn off Firewall to allow the traffic in.
+
+![](Project_screenshots/RDP-VM-Firewall-off.png)
+
+![](Project_screenshots/RDP-VM-connection.png)
+
+![](Project_screenshots/`RDP-VM-connection.png)
+
+- **Screenshot 3.4**:Configuration of data collection rules in Log Analytics.
+
+![](Project_screenshots/RDP-VM-FailedLogonAttempts-EventViewer.png)
+
+```kql
+SecurityEvent
+| where EventID == 4625
+```
+
+![](Project_screenshots/LAWFailed_Logon_Analytics_Query-1.png)
+
+### Integrating IP Geolocation API
+
+To enhance the analysis of failed logon attempts, I integrated an IP Geolocation API. This API converted IP addresses from the logs into geographical locations.
+
+1. **API Integration**: Used an IP Geolocation API (such as MaxMind or IPstack) in an Azure Function to look up the geographical locations of IP addresses.
+2. **Data Enrichment**: The Azure Function enriched the log data with latitude and longitude coordinates for each IP address.
+
+- **Screenshot 3.5**: Geo Location API setup, get API key
+
+![](Project_screenshots/Geo-location-api2.png)
+
+![](Project_screenshots/Geo-location-api-explaination.png)
+
+- **Screenshot 3.6**: Powershell script to create custom log and extract location using IPs.
+
+![](Project_screenshots/RDP-VM-Powershel-script-Custom-log-file-create.png)
+
+![](Project_screenshots/RDP-VM-Powershel-Failed_Logon_Attempts.png)
+
+- **Screenshot 3.7**: Example of a Custom log schema creation in Log Analytics.
+
+![](Project_screenshots/LAW_Custom_logSchema_create-1.png)
+
+![](Project_screenshots/LAW_Custom_logSchema_create2.png)
+
+![](Project_screenshots/LAW_Custom_logSchema_create3.png)
+
+![](Project_screenshots/LAW_Custom_logSchema_create4.png)
+
+![](Project_screenshots/LAW_Custom_logSchema_create5.png)
+
+![](Project_screenshots/LAW_Custom_logSchema_create6.png)
+
+- **Screenshot 3.8**: Example of KQL query to fetch the Custom logs in the Log Analytics from honeypot VM.
+
+This is the log data we get from powershell scrip, GeoLocation API and custom log file. We need to modify it to visualise this data in the Microsoft Sentinel.
+
+```kql
+GEO_Data_failedRDP_CL
+```
+
+![](Project_screenshots/LAWFailed_Logon_Analytics_Query-2.png)
+
+This is KQL is to extract the field from the raw data.
+
+```kql
+GEO_Data_failedRDP_CL
+| extend
+  latitude = extract("latitude:([^,]+)", 1, RawData),
+  longitude = extract("longitude:([^,]+)", 1, RawData),
+  destinationhost = extract("destinationhost:([^,]+)", 1, RawData),
+  username = extract("username:([^,]+)", 1, RawData),
+  sourcehost = extract("sourcehost:([^,]+)", 1, RawData),
+  state = extract("state:([^,]+)", 1, RawData),
+  country = extract("country:([^,]+)", 1, RawData),
+  label = extract("label:([^,]+)", 1, RawData),
+  timestamp = extract("timestamp:([^,]+)", 1, RawData)
+| project latitude, longitude, destinationhost, username, sourcehost, state, country, label, timestamp
+```
+
+![](Project_screenshots/LAWFailed_Logon_AnalyticsALLafter3days.png)
 
 ## Step 4: Setting Up Azure Sentinel
 
@@ -175,13 +210,6 @@ To centralize security monitoring and incident response, I deployed Azure Sentin
 1. **Connecting Data Sources**: Connected Azure Sentinel to the Log Analytics Workspace, enabling it to ingest log data from the VMs.
 2. **Creating Analytics Rules**: Created custom analytics rules to detect failed logon attempts and other potential security incidents.
 
-### Integrating IP Geolocation API
-
-To enhance the analysis of failed logon attempts, I integrated an IP Geolocation API. This API converted IP addresses from the logs into geographical locations.
-
-1. **API Integration**: Used an IP Geolocation API (such as MaxMind or IPstack) in an Azure Function to look up the geographical locations of IP addresses.
-2. **Data Enrichment**: The Azure Function enriched the log data with latitude and longitude coordinates for each IP address.
-
 ### Visualizing Data in Azure Sentinel
 
 Azure Sentinel provided a rich set of tools for visualizing security data and responding to incidents. I created dashboards to display real-time data on failed logon attempts, including geographical distribution and trends.
@@ -191,7 +219,7 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
 ### Screenshots
 
-- **Screenshot 8**: Azure Sentinel dashboard showing connected data sources.
+- **Screenshot 4.1**: Azure Sentinel dashboard showing connected data sources.
 
 ![](Project_screenshots/MicrosoftSentinelCreate1.png)
 
@@ -201,7 +229,27 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
 ![](Project_screenshots/MicrosoftSentinelCreate4.png)
 
-- **Screenshot 9**: Visualization of failed logon attempt locations on a map in Sentinel.
+- **Screenshot 4.2**: Visualization of failed logon attempt locations on a map in Sentinel.
+
+  ```kql
+  GEO_Data_failedRDP_CL
+  | extend
+    latitude = todouble(extract("latitude:([^,]+)", 1, RawData)),
+    longitude = todouble(extract("longitude:([^,]+)", 1, RawData)),
+    destinationhost = extract("destinationhost:([^,]+)", 1, RawData),
+    username = extract("username:([^,]+)", 1, RawData),
+    sourcehost = extract("sourcehost:([^,]+)", 1, RawData),
+    state = extract("state:([^,]+)", 1, RawData),
+    country = extract("country:([^,]+)", 1, RawData),
+    label = extract("label:([^,]+)", 1, RawData),
+    timestamp = extract("timestamp:([^,]+)", 1, RawData)
+  | project latitude, longitude, destinationhost, username, sourcehost, state, country, label, timestamp
+  | where isnotempty(latitude) and isnotempty(longitude)
+  | summarize event_count=count() by sourcehost, latitude, longitude, country, state, label, destinationhost
+  | where destinationhost != "samplehost"
+  | where sourcehost != ""
+
+  ```
 
 ![](Project_screenshots/Azure-Sentenial-SIEM-grid.png)
 
@@ -211,32 +259,7 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
 ![](Project_screenshots/Geo-location-api-limit.png)
 
-### 4. Monitoring with PowerShell
-
-1. **PowerShell Script**:
-
-   - Open PowerShell on the VM and create a script to scan Event Viewer for EventID 4625.
-   - Use the IPgeolocation.io API to log the IP addresses and their geolocations.
-
-   ```powershell
-   $logPath = "C:/ProgramData/FailedRDPlogfile.log"
-   $apiKey = "your_api_key"
-
-   Get-EventLog -LogName Security -InstanceId 4625 | ForEach-Object {
-       $ip = $_.ReplacementStrings[-2]
-       $response = Invoke-RestMethod -Uri "https://api.ipgeolocation.io/ipgeo?apiKey=$apiKey&ip=$ip"
-       $location = $response | Select-Object -ExpandProperty geo
-       Add-Content -Path $logPath -Value "$($ip) - $($location.country_name)"
-   }
-   ```
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
-
-![](Project_screenshots/)
+![](Project_screenshots/Azure-Sentenial-SIEM-map-4After3days.png)
 
 ### 6. Incident Response and Remediation
 
@@ -246,10 +269,23 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
    - Example KQL query to detect failed logon attempts:
 
    ```kql
-   SecurityEvent
-   | where EventID == 4625
-   | summarize count() by IPAddress, bin(TimeGenerated, 1h)
-   | where count_ > 5
+   GEO_Data_failedRDP_CL
+   | extend
+    latitude = todouble(extract("latitude:([^,]+)", 1, RawData)),
+    longitude = todouble(extract("longitude:([^,]+)", 1, RawData)),
+    destinationhost = extract("destinationhost:([^,]+)", 1, RawData),
+    username = extract("username:([^,]+)", 1, RawData),
+    sourcehost = extract("sourcehost:([^,]+)", 1, RawData),
+    state = extract("state:([^,]+)", 1, RawData),
+    country = extract("country:([^,]+)", 1, RawData),
+    label = extract("label:([^,]+)", 1, RawData),
+    timestamp = extract("timestamp:([^,]+)", 1, RawData)
+   | project latitude, longitude, destinationhost, username, sourcehost, state, country, label, timestamp
+   | where isnotempty(latitude) and isnotempty(longitude)
+   | where destinationhost != "samplehost" and sourcehost != ""
+   | summarize event_count=count() by sourcehost, latitude, longitude, country, state, label, destinationhost
+   | where event_count > 10
+   | project sourcehost, event_count, latitude, longitude, country, state, label, destinationhost
    ```
 
 2. **Response Actions**:
