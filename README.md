@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project demonstrates how to use Microsoft Azure to create a secure cloud environment, monitor failed logon attempts, and respond to potential security incidents. It leverages Azure Virtual Machines, Azure Log Analytics, Microsoft Defender for Cloud, and Azure Sentinel to provide a comprehensive security monitoring and incident response solution. 
+This project demonstrates how to use Microsoft Azure to create a secure cloud environment, monitor failed logon attempts, and respond to potential security incidents. It leverages Azure Virtual Machines, Azure Log Analytics, Microsoft Defender for Cloud, and Azure Sentinel. Additionally, this project involves adding custom log files, using an IP Geolocation API to get the exact location of IP addresses, and visualizing these locations in maps in Azure Sentinel. This comprehensive approach showcases my skills in using SIEM technology.
 
 ## Objectives
 
@@ -22,32 +22,158 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
 - [**PowerShell**](https://learn.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-12.0.0): Script to scan Event Viewer and send log data to an external API.
 - [**IPgeolocation.io API**](https://ipgeolocation.io/): Retrieves geolocation information for IP addresses.
 
-## Architecture
 
-![Architecture Diagram](https://github.com/yourusername/yourrepository/raw/main/images/architecture_diagram.png)
+## Step 1: Deploy Azure Virtual Machines
 
-## Step-by-Step Guide
+### Setting Up Virtual Machines
+To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline infrastructure. These VMs were configured with Windows Server and enabled for Remote Desktop Protocol (RDP). The VMs acted as honeypots to attract unauthorized access attempts.
 
-### 1. Provisioning the Virtual Machine
+1. **Creating VMs**: Using the Azure Portal, I created VMs by selecting the appropriate VM size, OS image, and configuring network settings.
+2. **Enabling RDP**: Ensuring RDP was enabled on these VMs allowed for remote access, which was crucial for monitoring failed logon attempts.
 
-1. **Create a Virtual Machine**:
-    - Go to the Azure portal and create a new VM with the following configuration:
-        - **Image**: Windows 10
-        - **Size**: Standard B2s (2 vcpus, 4 GiB memory)
-        - **Inbound Port Rules**: Allow RDP (3389)
-    - Ensure the VM has a static public IP address.
+### Screenshots
+- **Screenshot 1**: VM creation process in Azure Portal.
 
-### 2. Configuring Network Security
+![Azure portal Google](Project_screenshots\Azure_VM_Creation.png)
 
-1. **Network Security Group**:
-    - Configure the NSG to allow inbound traffic on RDP (port 3389) for remote access.
-    - Implement rules to restrict access to only trusted IP addresses.
+![Azure Free Portal](Project_screenshots\Azure_VM_Creation_2.png)
 
-### 3. Setting Up Log Collection
+![Resource Creation](Project_screenshots\Azure_VM_Creation_3.png)
 
-1. **Azure Log Analytics Workspace**:
-    - Create a Log Analytics Workspace in Azure.
-    - Install the Log Analytics agent on the VM and link it to the workspace.
+![VM creation](Project_screenshots\Azure_VM_Creation_11.png)
+
+![VM after deployment](Project_screenshots\Azure_VM_Creation_Step1.png)
+
+
+- **Screenshot 2**: Network settings configuration for the VM.
+
+
+![NSG network configuration](Project_screenshots\NSG_Setup1.png)
+
+![NSG inbound rule setup](Project_screenshots\NSG_Setup2.jpg)
+
+![NSG inbound rule configuration](Project_screenshots\NSG_Setup3.png)
+
+![NSG inbound rule configuration 2](Project_screenshots\NSG_Setup4.png)
+
+## Step 2: Configuring Log Collection with Azure Log Analytics
+
+### Creating a Log Analytics Workspace
+I created an Azure Log Analytics Workspace to collect and analyze log data from the VMs. This workspace served as the central hub for all log-related activities.
+
+1. **Workspace Creation**: I set up a new Log Analytics Workspace using the Azure Portal.
+2. **Agent Installation**: Installed the Log Analytics agent on each VM to forward log data to the workspace.
+
+### Configuring Data Collection
+I configured the workspace to collect specific logs, such as Windows Event logs, which include details about failed RDP attempts. This setup ensured that all relevant security events were captured.
+
+### Screenshots
+- **Screenshot 3**: Log Analytics Workspace creation.
+
+![](Project_screenshots\Log_Analytics_Workspace1.png)
+
+![](Project_screenshots/Log_Analytics_Workspace2.png)
+
+![](Project_screenshots\Log_Analytics_Workspace4.png)
+
+![](Project_screenshots\Log_Analytics-Connection2.png)
+
+![](Project_screenshots\Log_Analytics-Connection3.png)
+
+- **Screenshot 4**: Powershell script to create custom log and extract location using IPs.
+
+![]()
+
+![]()
+
+![]()
+
+![]()
+
+
+![](Project_screenshots/Geo-location-api-limit.png)
+
+- **Screenshot 5**: Configuration of data collection rules in Log Analytics.
+
+![](Project_screenshots\LAWFailed_Logon_Analytics_Query-1.png)
+
+
+- **Screenshot 6**: Example of a Custom log schema creation in Log Analytics. 
+
+![](Project_screenshots\LAW_Custom_logSchema_create-1.png)
+
+![](Project_screenshots\LAW_Custom_logSchema_create2.png)
+
+![](Project_screenshots\LAW_Custom_logSchema_create3.png)
+
+![](Project_screenshots\LAW_Custom_logSchema_create4.png)
+
+![](Project_screenshots\LAW_Custom_logSchema_create5.png)
+
+![](Project_screenshots\LAW_Custom_logSchema_create6.png)
+
+
+## Step 3: Implementing Microsoft Defender for Cloud
+
+### Enabling Microsoft Defender for Cloud
+To enhance the security of my Azure environment, I enabled Microsoft Defender for Cloud. This service provides advanced threat protection for Azure resources.
+
+1. **Security Center Configuration**: Configured the Azure Security Center to monitor the VMs and provide security recommendations.
+2. **Policy Assignment**: Applied security policies to ensure that the VMs adhered to best practices.
+
+### Monitoring Security Alerts
+Microsoft Defender for Cloud continuously monitored the environment and generated alerts for suspicious activities, such as repeated failed logon attempts.
+
+### Screenshots
+- **Screenshot 7**: Microsoft Defender for Cloud dashboard showing security posture.
+
+![](Project_screenshots\Microsoft-Defender-for-cloud1.png)
+
+![](Project_screenshots\Microsoft-Defender-for-cloud3.png)
+
+
+## Step 4: Setting Up Azure Sentinel
+
+### Deploying Azure Sentinel
+To centralize security monitoring and incident response, I deployed Azure Sentinel. This cloud-native SIEM (Security Information and Event Management) system allowed for advanced threat detection and response.
+
+1. **Connecting Data Sources**: Connected Azure Sentinel to the Log Analytics Workspace, enabling it to ingest log data from the VMs.
+2. **Creating Analytics Rules**: Created custom analytics rules to detect failed logon attempts and other potential security incidents.
+
+### Integrating IP Geolocation API
+To enhance the analysis of failed logon attempts, I integrated an IP Geolocation API. This API converted IP addresses from the logs into geographical locations.
+
+1. **API Integration**: Used an IP Geolocation API (such as MaxMind or IPstack) in an Azure Function to look up the geographical locations of IP addresses.
+2. **Data Enrichment**: The Azure Function enriched the log data with latitude and longitude coordinates for each IP address.
+
+### Visualizing Data in Azure Sentinel
+Azure Sentinel provided a rich set of tools for visualizing security data and responding to incidents. I created dashboards to display real-time data on failed logon attempts, including geographical distribution and trends.
+
+1. **Map Visualization**: Used Azure Sentinel’s built-in map visualizations to display the geographical locations of failed logon attempts on a world map.
+2. **Incident Response**: Configured playbooks in Azure Sentinel to automate responses to detected incidents, enhancing the overall security posture.
+
+### Screenshots
+- **Screenshot 8**: Azure Sentinel dashboard showing connected data sources.
+
+![](Project_screenshots\MicrosoftSentinelCreate1.png)
+
+![](Project_screenshots\MicrosoftSentinelCreate2.png)
+
+![](Project_screenshots\MicrosoftSentinelCreate3.png)
+
+![](Project_screenshots\MicrosoftSentinelCreate4.png)
+
+- **Screenshot 9**: Visualization of failed logon attempt locations on a map in Sentinel.
+
+![](Project_screenshots\Azure-Sentenial-SIEM-grid.png)
+
+![](Project_screenshots\Azure-Sentenial-SIEM-map-2.png)
+
+![](Project_screenshots\Azure-Sentenial-SIEM-map-3.png)
+
+![](Project_screenshots\Geo-location-api-limit.png)
+
+
 
 ### 4. Monitoring with PowerShell
 
@@ -66,13 +192,6 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
         Add-Content -Path $logPath -Value "$($ip) - $($location.country_name)"
     }
     ```
-
-### 5. Integrating with Azure Sentinel
-
-1. **Azure Sentinel**:
-    - Enable Azure Sentinel on your Log Analytics Workspace.
-    - Create data connectors to ingest log data from the VM.
-    - Configure workbooks and dashboards to visualize the data.
 
 ### 6. Incident Response and Remediation
 
@@ -115,4 +234,4 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
 
 ## Conclusion
 
-This project provided hands-on experience with cloud security, SIEM tools, and incident response procedures. By following these steps, you can set up a robust monitoring and response system in Microsoft Azure. This project highlights skills in cloud security, log analysis, and threat detection, making it a valuable addition to any SOC Analyst's portfolio.
+Through this project, I successfully demonstrated how to create a secure cloud environment using Microsoft Azure. By leveraging Azure Virtual Machines, Azure Log Analytics, Microsoft Defender for Cloud, and Azure Sentinel, I was able to monitor failed logon attempts and respond to potential security incidents effectively. The integration of custom log files and an IP Geolocation API allowed for precise location tracking and visualization of attack origins. This project showcases my ability to implement and manage advanced security solutions, utilizing SIEM technology to enhance threat detection and response.
