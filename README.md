@@ -22,31 +22,30 @@ This project demonstrates how to use Microsoft Azure to create a secure cloud en
 - [**PowerShell**](https://learn.microsoft.com/en-us/powershell/azure/get-started-azureps?view=azps-12.0.0): Script to scan Event Viewer and send log data to an external API.
 - [**IPgeolocation.io API**](https://ipgeolocation.io/): Retrieves geolocation information for IP addresses.
 
-
 ## Step 1: Deploy Azure Virtual Machines
 
 ### Setting Up Virtual Machines
+
 To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline infrastructure. These VMs were configured with Windows Server and enabled for Remote Desktop Protocol (RDP). The VMs acted as honeypots to attract unauthorized access attempts.
 
 1. **Creating VMs**: Using the Azure Portal, I created VMs by selecting the appropriate VM size, OS image, and configuring network settings.
 2. **Enabling RDP**: Ensuring RDP was enabled on these VMs allowed for remote access, which was crucial for monitoring failed logon attempts.
 
 ### Screenshots
+
 - **Screenshot 1**: VM creation process in Azure Portal.
 
-![Azure portal Google](Project_screenshots\Azure_VM_Creation.png)
+![Azure portal Google](..\Project_screenshots\Azure_VM_Creation.png)
 
-![Azure Free Portal](Project_screenshots\Azure_VM_Creation_2.png)
+![Azure Free Portal](..\Project_screenshots\Azure_VM_Creation_2.png)
 
-![Resource Creation](Project_screenshots\Azure_VM_Creation_3.png)
+![Resource Creation](..\Project_screenshots\Azure_VM_Creation_3.png)
 
 ![VM creation](Project_screenshots\Azure_VM_Creation_11.png)
 
 ![VM after deployment](Project_screenshots\Azure_VM_Creation_Step1.png)
 
-
 - **Screenshot 2**: Network settings configuration for the VM.
-
 
 ![NSG network configuration](Project_screenshots\NSG_Setup1.png)
 
@@ -59,15 +58,18 @@ To begin, I deployed several Azure Virtual Machines (VMs) to create a baseline i
 ## Step 2: Configuring Log Collection with Azure Log Analytics
 
 ### Creating a Log Analytics Workspace
+
 I created an Azure Log Analytics Workspace to collect and analyze log data from the VMs. This workspace served as the central hub for all log-related activities.
 
 1. **Workspace Creation**: I set up a new Log Analytics Workspace using the Azure Portal.
 2. **Agent Installation**: Installed the Log Analytics agent on each VM to forward log data to the workspace.
 
 ### Configuring Data Collection
+
 I configured the workspace to collect specific logs, such as Windows Event logs, which include details about failed RDP attempts. This setup ensured that all relevant security events were captured.
 
 ### Screenshots
+
 - **Screenshot 3**: Log Analytics Workspace creation.
 
 ![](Project_screenshots\Log_Analytics_Workspace1.png)
@@ -90,15 +92,13 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 ![]()
 
-
 ![](Project_screenshots/Geo-location-api-limit.png)
 
 - **Screenshot 5**: Configuration of data collection rules in Log Analytics.
 
 ![](Project_screenshots\LAWFailed_Logon_Analytics_Query-1.png)
 
-
-- **Screenshot 6**: Example of a Custom log schema creation in Log Analytics. 
+- **Screenshot 6**: Example of a Custom log schema creation in Log Analytics.
 
 ![](Project_screenshots\LAW_Custom_logSchema_create-1.png)
 
@@ -112,47 +112,52 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 ![](Project_screenshots\LAW_Custom_logSchema_create6.png)
 
-
 ## Step 3: Implementing Microsoft Defender for Cloud
 
 ### Enabling Microsoft Defender for Cloud
+
 To enhance the security of my Azure environment, I enabled Microsoft Defender for Cloud. This service provides advanced threat protection for Azure resources.
 
 1. **Security Center Configuration**: Configured the Azure Security Center to monitor the VMs and provide security recommendations.
 2. **Policy Assignment**: Applied security policies to ensure that the VMs adhered to best practices.
 
 ### Monitoring Security Alerts
+
 Microsoft Defender for Cloud continuously monitored the environment and generated alerts for suspicious activities, such as repeated failed logon attempts.
 
 ### Screenshots
+
 - **Screenshot 7**: Microsoft Defender for Cloud dashboard showing security posture.
 
 ![](Project_screenshots\Microsoft-Defender-for-cloud1.png)
 
 ![](Project_screenshots\Microsoft-Defender-for-cloud3.png)
 
-
 ## Step 4: Setting Up Azure Sentinel
 
 ### Deploying Azure Sentinel
+
 To centralize security monitoring and incident response, I deployed Azure Sentinel. This cloud-native SIEM (Security Information and Event Management) system allowed for advanced threat detection and response.
 
 1. **Connecting Data Sources**: Connected Azure Sentinel to the Log Analytics Workspace, enabling it to ingest log data from the VMs.
 2. **Creating Analytics Rules**: Created custom analytics rules to detect failed logon attempts and other potential security incidents.
 
 ### Integrating IP Geolocation API
+
 To enhance the analysis of failed logon attempts, I integrated an IP Geolocation API. This API converted IP addresses from the logs into geographical locations.
 
 1. **API Integration**: Used an IP Geolocation API (such as MaxMind or IPstack) in an Azure Function to look up the geographical locations of IP addresses.
 2. **Data Enrichment**: The Azure Function enriched the log data with latitude and longitude coordinates for each IP address.
 
 ### Visualizing Data in Azure Sentinel
+
 Azure Sentinel provided a rich set of tools for visualizing security data and responding to incidents. I created dashboards to display real-time data on failed logon attempts, including geographical distribution and trends.
 
 1. **Map Visualization**: Used Azure Sentinel’s built-in map visualizations to display the geographical locations of failed logon attempts on a world map.
 2. **Incident Response**: Configured playbooks in Azure Sentinel to automate responses to detected incidents, enhancing the overall security posture.
 
 ### Screenshots
+
 - **Screenshot 8**: Azure Sentinel dashboard showing connected data sources.
 
 ![](Project_screenshots\MicrosoftSentinelCreate1.png)
@@ -173,64 +178,72 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
 ![](Project_screenshots\Geo-location-api-limit.png)
 
-
-
 ### 4. Monitoring with PowerShell
 
 1. **PowerShell Script**:
-    - Open PowerShell on the VM and create a script to scan Event Viewer for EventID 4625.
-    - Use the IPgeolocation.io API to log the IP addresses and their geolocations.
 
-    ```powershell
-    $logPath = "C:\ProgramData\FailedRDPlogfile.log"
-    $apiKey = "your_api_key"
-    
-    Get-EventLog -LogName Security -InstanceId 4625 | ForEach-Object {
-        $ip = $_.ReplacementStrings[-2]
-        $response = Invoke-RestMethod -Uri "https://api.ipgeolocation.io/ipgeo?apiKey=$apiKey&ip=$ip"
-        $location = $response | Select-Object -ExpandProperty geo
-        Add-Content -Path $logPath -Value "$($ip) - $($location.country_name)"
-    }
-    ```
+   - Open PowerShell on the VM and create a script to scan Event Viewer for EventID 4625.
+   - Use the IPgeolocation.io API to log the IP addresses and their geolocations.
+
+   ```powershell
+   $logPath = "C:\ProgramData\FailedRDPlogfile.log"
+   $apiKey = "your_api_key"
+
+   Get-EventLog -LogName Security -InstanceId 4625 | ForEach-Object {
+       $ip = $_.ReplacementStrings[-2]
+       $response = Invoke-RestMethod -Uri "https://api.ipgeolocation.io/ipgeo?apiKey=$apiKey&ip=$ip"
+       $location = $response | Select-Object -ExpandProperty geo
+       Add-Content -Path $logPath -Value "$($ip) - $($location.country_name)"
+   }
+   ```
 
 ### 6. Incident Response and Remediation
 
 1. **Incident Detection**:
-    - Set up alert rules in Azure Sentinel to detect suspicious activities, such as multiple failed logon attempts from the same IP.
-    - Example KQL query to detect failed logon attempts:
-    ```kql
-    SecurityEvent
-    | where EventID == 4625
-    | summarize count() by IPAddress, bin(TimeGenerated, 1h)
-    | where count_ > 5
-    ```
+
+   - Set up alert rules in Azure Sentinel to detect suspicious activities, such as multiple failed logon attempts from the same IP.
+   - Example KQL query to detect failed logon attempts:
+
+   ```kql
+   SecurityEvent
+   | where EventID == 4625
+   | summarize count() by IPAddress, bin(TimeGenerated, 1h)
+   | where count_ > 5
+   ```
 
 2. **Response Actions**:
-    - Automate responses using Azure Logic Apps to notify the SOC team.
-    - Block malicious IP addresses using Azure Firewall or NSG rules.
+
+   - Automate responses using Azure Logic Apps to notify the SOC team.
+   - Block malicious IP addresses using Azure Firewall or NSG rules.
 
 3. **Reporting**:
-    - Generate reports summarizing the incidents detected and actions taken.
-    - Example report template:
-    ```markdown
-    ## Incident Report
 
-    ### Incident Summary
-    - **Date/Time**: 
-    - **Description**: Multiple failed logon attempts detected from IP .
+   - Generate reports summarizing the incidents detected and actions taken.
+   - Example report template:
 
-    ### Affected Resources
-    - **Resource**: 
-    - **Public IP**: 
+   ```markdown
+   ## Incident Report
 
-    ### Actions Taken
-    - **Action 1**: Blocked IP address using NSG rule.
-    - **Action 2**: Notified SOC team via email.
+   ### Incident Summary
 
-    ### Recommendations
-    - **Recommendation 1**: Implement multi-factor authentication (MFA).
-    - **Recommendation 2**: Regularly review and update firewall rules.
-    ```
+   - **Date/Time**:
+   - **Description**: Multiple failed logon attempts detected from IP .
+
+   ### Affected Resources
+
+   - **Resource**:
+   - **Public IP**:
+
+   ### Actions Taken
+
+   - **Action 1**: Blocked IP address using NSG rule.
+   - **Action 2**: Notified SOC team via email.
+
+   ### Recommendations
+
+   - **Recommendation 1**: Implement multi-factor authentication (MFA).
+   - **Recommendation 2**: Regularly review and update firewall rules.
+   ```
 
 ## Conclusion
 
