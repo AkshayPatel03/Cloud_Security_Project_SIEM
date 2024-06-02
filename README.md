@@ -182,7 +182,7 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
     - Use the IPgeolocation.io API to log the IP addresses and their geolocations.
 
     ```powershell
-    $logPath = "C:\path\to\logfile.txt"
+    $logPath = "C:\ProgramData\FailedRDPlogfile.log"
     $apiKey = "your_api_key"
     
     Get-EventLog -LogName Security -InstanceId 4625 | ForEach-Object {
