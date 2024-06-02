@@ -84,13 +84,13 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 - **Screenshot 4**: Powershell script to create custom log and extract location using IPs.
 
-![]()
+![](Project_screenshots/)
 
-![]()
+![](Project_screenshots/)
 
-![]()
+![](Project_screenshots/)
 
-![]()
+![](Project_screenshots/)
 
 ![](Project_screenshots/Geo-location-api-limit.png)
 
@@ -196,6 +196,14 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
        Add-Content -Path $logPath -Value "$($ip) - $($location.country_name)"
    }
    ```
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
+
+![](Project_screenshots/)
 
 ### 6. Incident Response and Remediation
 
