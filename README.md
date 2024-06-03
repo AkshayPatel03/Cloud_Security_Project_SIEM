@@ -303,18 +303,18 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
    ### Incident Summary
 
-   - **Date/Time**:
+   - **Date/Time**: 31/05/2024 7:50 PM
    - **Description**: Multiple failed logon attempts detected from IP .
 
    ### Affected Resources
 
-   - **Resource**:
-   - **Public IP**:
+   - **Resource**: My honeypot Windows 10 machine 
+   - **Public IP**: 20.80.222.3
 
    ### Actions Taken
 
-   - **Action 1**: Blocked IP address using NSG rule.
-   - **Action 2**: Notified SOC team via email.
+   - **Action 1**: Blocked IP address using NSG rule. Blocked IP 182.75.135.46 in the NSG inbound rule.
+   - **Action 2**: Notified SOC team via email. 
 
    ### Recommendations
 
