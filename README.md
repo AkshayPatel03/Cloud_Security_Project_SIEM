@@ -70,9 +70,9 @@ Microsoft Defender for Cloud continuously monitored the environment and generate
 
 - **Screenshot 2.1**: Microsoft Defender for Cloud dashboard showing security posture.
 
-![](Project_screenshots/Microsoft-Defender-for-cloud1.png)
+![Microsoft Defender for Cloud Dashboard](Project_screenshots/Microsoft-Defender-for-cloud1.png)
 
-![](Project_screenshots/Microsoft-Defender-for-cloud3.png)
+![Microsoft Defender for Cloud Alerts](Project_screenshots/Microsoft-Defender-for-cloud3.png)
 
 ## Step 3: Configuring Log Collection with Azure Log Analytics
 
@@ -100,44 +100,42 @@ I configured the workspace to collect specific logs, such as Windows Event logs,
 
 - **Screenshot 3.1**: Log Analytics Workspace creation.
 
-![](Project_screenshots/Log_Analytics_Workspace1.png)
+![Log Analytics Workspace Creation](Project_screenshots/Log_Analytics_Workspace1.png)
 
-![](Project_screenshots/Log_Analytics_Workspace2.png)
+![Log Analytics Workspace Setup](Project_screenshots/Log_Analytics_Workspace2.png)
 
-![](Project_screenshots/Log_Analytics_Workspace4.png)
+![Log Analytics Workspace Configuration](Project_screenshots/Log_Analytics_Workspace4.png)
 
-![](Project_screenshots/Log_Analytics-Connection2.png)
+![Log Analytics Workspace Connection](Project_screenshots/Log_Analytics-Connection2.png)
 
-![](Project_screenshots/Log_Analytics-Connection3.png)
+![Log Analytics Workspace Connection 2](Project_screenshots/Log_Analytics-Connection3.png)
 
 - **Screenshot 3.2**: VM Access remotely, Check Security logs
 
-![](Project_screenshots/Azure_VM_Creation_Step1.png)
+![VM Access Remotely](Project_screenshots/Azure_VM_Creation_Step1.png)
 
-![](Project_screenshots/RDP-agent.png)
+![RDP Agent](Project_screenshots/RDP-agent.png)
 
-![](Project_screenshots/RDP-VM-agent-connect.png)
+![RDP VM Agent Connection](Project_screenshots/RDP-VM-agent-connect.png)
 
-![](Project_screenshots/RDP-VM-OsSetup.png)
+![RDP VM OS Setup](Project_screenshots/RDP-VM-OsSetup.png)
 
 - **Screenshot 3.3**:Turn off Firewall to allow the traffic in.
 
-![](Project_screenshots/RDP-VM-Firewall-off.png)
+![Firewall Off](Project_screenshots/RDP-VM-Firewall-off.png)
 
-![](Project_screenshots/RDP-VM-connection.png)
-
-![](Project_screenshots/`RDP-VM-connection.png)
+![VM Connection](Project_screenshots/RDP-VM-connection.png)
 
 - **Screenshot 3.4**:Configuration of data collection rules in Log Analytics.
 
-![](Project_screenshots/RDP-VM-FailedLogonAttempts-EventViewer.png)
+![Failed Logon Attempts Event Viewer](Project_screenshots/RDP-VM-FailedLogonAttempts-EventViewer.png)
 
 ```kql
 SecurityEvent
 | where EventID == 4625
 ```
 
-![](Project_screenshots/LAWFailed_Logon_Analytics_Query-1.png)
+![Log Analytics Query](Project_screenshots/LAWFailed_Logon_Analytics_Query-1.png)
 
 ### Integrating IP Geolocation API
 
@@ -148,29 +146,29 @@ To enhance the analysis of failed logon attempts, I integrated an IP Geolocation
 
 - **Screenshot 3.5**: Geo Location API setup, get API key
 
-![](Project_screenshots/Geo-location-api2.png)
+![Geo Location API Setup](Project_screenshots/Geo-location-api2.png)
 
-![](Project_screenshots/Geo-location-api-explaination.png)
+![Geo Location API Explanation](Project_screenshots/Geo-location-api-explaination.png)
 
 - **Screenshot 3.6**: Powershell script to create custom log and extract location using IPs.
 
-![](Project_screenshots/RDP-VM-Powershel-script-Custom-log-file-create.png)
+![PowerShell Script Custom Log](Project_screenshots/RDP-VM-Powershel-script-Custom-log-file-create.png)
 
-![](Project_screenshots/RDP-VM-Powershel-Failed_Logon_Attempts.png)
+![PowerShell Failed Logon Attempts](Project_screenshots/RDP-VM-Powershel-Failed_Logon_Attempts.png)
 
 - **Screenshot 3.7**: Example of a Custom log schema creation in Log Analytics.
 
-![](Project_screenshots/LAW_Custom_logSchema_create-1.png)
+![Custom Log Schema Creation Step 1](Project_screenshots/LAW_Custom_logSchema_create-1.png)
 
-![](Project_screenshots/LAW_Custom_logSchema_create2.png)
+![Custom Log Schema Creation Step 2](Project_screenshots/LAW_Custom_logSchema_create2.png)
 
-![](Project_screenshots/LAW_Custom_logSchema_create3.png)
+![Custom Log Schema Creation Step 3](Project_screenshots/LAW_Custom_logSchema_create3.png)
 
-![](Project_screenshots/LAW_Custom_logSchema_create4.png)
+![Custom Log Schema Creation Step 4](Project_screenshots/LAW_Custom_logSchema_create4.png)
 
-![](Project_screenshots/LAW_Custom_logSchema_create5.png)
+![Custom Log Schema Creation Step 5](Project_screenshots/LAW_Custom_logSchema_create5.png)
 
-![](Project_screenshots/LAW_Custom_logSchema_create6.png)
+![Custom Log Schema Creation Step 6](Project_screenshots/LAW_Custom_logSchema_create6.png)
 
 - **Screenshot 3.8**: Example of KQL query to fetch the Custom logs in the Log Analytics from honeypot VM.
 
@@ -180,7 +178,7 @@ This is the log data we get from powershell scrip, GeoLocation API and custom lo
 GEO_Data_failedRDP_CL
 ```
 
-![](Project_screenshots/LAWFailed_Logon_Analytics_Query-2.png)
+![KQL Query for Custom Logs](Project_screenshots/LAWFailed_Logon_Analytics_Query-2.png)
 
 This is KQL is to extract the field from the raw data.
 
@@ -199,7 +197,7 @@ GEO_Data_failedRDP_CL
 | project latitude, longitude, destinationhost, username, sourcehost, state, country, label, timestamp
 ```
 
-![](Project_screenshots/LAWFailed_Logon_AnalyticsALLafter3days.png)
+![Log Analytics Query After 3 Days](Project_screenshots/LAWFailed_Logon_AnalyticsALLafter3days.png)
 
 ## Step 4: Setting Up Azure Sentinel
 
@@ -221,13 +219,13 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
 - **Screenshot 4.1**: Azure Sentinel dashboard showing connected data sources.
 
-![](Project_screenshots/MicrosoftSentinelCreate1.png)
+![Azure Sentinel Create Step 1](Project_screenshots/MicrosoftSentinelCreate1.png)
 
-![](Project_screenshots/MicrosoftSentinelCreate2.png)
+![Azure Sentinel Create Step 2](Project_screenshots/MicrosoftSentinelCreate2.png)
 
-![](Project_screenshots/MicrosoftSentinelCreate3.png)
+![Azure Sentinel Create Step 3](Project_screenshots/MicrosoftSentinelCreate3.png)
 
-![](Project_screenshots/MicrosoftSentinelCreate4.png)
+![Azure Sentinel Create Step 4](Project_screenshots/MicrosoftSentinelCreate4.png)
 
 - **Screenshot 4.2**: Visualization of failed logon attempt locations on a map in Sentinel.
 
@@ -251,15 +249,15 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
   ```
 
-![](Project_screenshots/Azure-Sentenial-SIEM-grid.png)
+![Azure Sentinel SIEM Grid](Project_screenshots/Azure-Sentenial-SIEM-grid.png)
 
-![](Project_screenshots/Azure-Sentenial-SIEM-map-2.png)
+![Azure Sentinel SIEM Map](Project_screenshots/Azure-Sentenial-SIEM-map-2.png)
 
-![](Project_screenshots/Azure-Sentenial-SIEM-map-3.png)
+![Azure Sentinel SIEM Map](Project_screenshots/Azure-Sentenial-SIEM-map-3.png)
 
-![](Project_screenshots/Geo-location-api-limit.png)
+![Geo Location API Limit](Project_screenshots/Geo-location-api-limit.png)
 
-![](Project_screenshots/Azure-Sentenial-SIEM-map-4After3days.png)
+![Azure Sentinel SIEM Map After 3 Days](Project_screenshots/Azure-Sentenial-SIEM-map-4After3days.png)
 
 ### 6. Incident Response and Remediation
 
@@ -308,13 +306,13 @@ Azure Sentinel provided a rich set of tools for visualizing security data and re
 
    ### Affected Resources
 
-   - **Resource**: My honeypot Windows 10 machine 
+   - **Resource**: My honeypot Windows 10 machine
    - **Public IP**: 20.80.222.3
 
    ### Actions Taken
 
    - **Action 1**: Blocked IP address using NSG rule. Blocked IP 182.75.135.46 in the NSG inbound rule.
-   - **Action 2**: Notified SOC team via email. 
+   - **Action 2**: Notified SOC team via email.
 
    ### Recommendations
 
