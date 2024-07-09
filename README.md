@@ -1,4 +1,4 @@
-# Cloud Security Project: Monitoring and Responding to Failed Logon Attempts with Azure
+# Cloud Security Project: Monitoring and Responding to Failed Logon Attempts with Azure Sentinel (SIEM) 
 
 ## Overview
 
